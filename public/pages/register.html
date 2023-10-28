@@ -286,9 +286,8 @@
             })
             .then(status => {
                 if (status.true) {
-                    window.location.href = "registration_success.html";
                 } else {
-                    window.location.href = "registration_failure.html";
+                    window.location.href = "login.html";
                 }
             })
             .catch(error => {
