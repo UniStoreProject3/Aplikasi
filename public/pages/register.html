@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button type="submit"
+                    <button type="submit" id="registerButton"
                         class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">create
                         account</button>
                 </div>
@@ -256,7 +256,46 @@
         </div>
     </div>
     <!-- ./copyright -->
+    <script>
+        document.getElementById("registerButton").addEventListener("click", register);
 
+        function register() {
+            const apiUrl = "https://asia-southeast2-unistore-403306.cloudfunctions.net/MembuatUser";
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const data = {
+                username: username,
+                password: password,
+                role: "user"
+            };
+
+            fetch(apiUrl, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Pendaftaran gagal');
+                }
+            })
+            .then(status => {
+                if (status.true) {
+                    window.location.href = "registration_success.html";
+                } else {
+                    window.location.href = "registration_failure.html";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
 </body>
 
 </html>
